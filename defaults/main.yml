@@ -8,7 +8,7 @@ postgresql_repo:
   gpgcheck: 1
   gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG"
 
-postgresql_data_dir: "/var/lib/pgsql/data"
+postgresql_data_dir: "/var/lib/pgsql1/data"
 
 postgresql_bin_path: "/usr/bin"
 

@@ -28,3 +28,14 @@
     group: "postgres"
     state: directory
     mode: 0700
+
+- name: "Check if PostgreSQL database is initialized"
+  stat:
+    path: "{{ postgresql_data_dir }}/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: "PostgreSQL database is initialized"
+  command: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
+  become: true
+  become_user: "postgres"
+  when: not pgdata_dir_version.stat.exists
