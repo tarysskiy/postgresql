@@ -14,3 +14,9 @@
     name: "{{ item }}"
     state: present
   loop: "{{ postgresql_packages }}"  
+
+- name: "Set PostgreSQL environment variables".
+  template:
+    src: postgres.sh.j2
+    dest: /etc/profile.d/postgres.sh
+    mode: 0644
