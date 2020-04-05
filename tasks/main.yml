@@ -1,25 +1,14 @@
 ---
-- name: "Install postgresql repo file"
-  yum_repository:
-    name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    baseurl: "{{ item.baseurl }}"
-    gpgcheck: "{{ item.gpgcheck }}"
-    gpgkey: "{{ item.gpgkey }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ postgresql_repo }}"
+- name: "Install PostgreSQL repo"
+  yum:
+    name: "{{ postgresql_repo }}"
+    state: present
 
 - name: "Install PostgreSQL packages"
   yum:
     name: "{{ item }}"
     state: present
   loop: "{{ postgresql_packages }}"  
-
-- name: "Set PostgreSQL environment variables"
-  template:
-    src: postgres.sh.j2
-    dest: /etc/profile.d/postgres.sh
-    mode: 0644
 
 - name: "Create PostgreSQL data directory"
   file:
@@ -35,13 +24,12 @@
   register: pgdata_dir_version
 
 - name: "PostgreSQL database is initialized"
-  command: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
+  command: "{{ postgresql_bin_path }}/postgresql-{{ postgresql_version }}-setup initdb"
   become: true
-  become_user: "postgres"
   when: not pgdata_dir_version.stat.exists
 
 - name: "Started PostgreSQL"
   service:
     name: "postgresql-{{ postgresql_version }}"
     state: "restarted"
-    enabled: "enabled"
+    enabled: "yes"
