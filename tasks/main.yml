@@ -1,6 +1,16 @@
 ---
+- name: "Install postgresql repo file"
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ postgresql_repo }}"
+
 - name: "Install PostgreSQL packages"
   yum:
-    name: "{{ postgresql_packages }}"
+    name: "{{ item }}"
     state: present
-    enablerepo: "{{ postgresql_enablerepo }}"
+  loop: "{{ postgresql_packages }}"  

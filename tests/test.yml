@@ -3,4 +3,4 @@
   remote_user: root
   become: yes
   roles:
-    - /home/tarysskiy/git/postgres
+    - /home/tarysskiy/git/postgresql

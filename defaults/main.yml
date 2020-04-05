@@ -1,7 +1,12 @@
 ---
 postgresql_version: "10"
 
-postgresql_enablerepo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+postgresql_repo:
+- name: "PostgreSQL"
+  description: "PostgreSQL {{ postgresql_version }} for RHEL/CentOS $releasever - $basearch"
+  baseurl: "https://download.postgresql.org/pub/repos/yum/{{ postgresql_version }}/redhat/rhel-$releasever-$basearch"
+  gpgcheck: 1
+  gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG"
 
 postgresql_data_dir: "/var/lib/pgsql/data"
 
