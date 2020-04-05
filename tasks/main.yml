@@ -15,8 +15,16 @@
     state: present
   loop: "{{ postgresql_packages }}"  
 
-- name: "Set PostgreSQL environment variables".
+- name: "Set PostgreSQL environment variables"
   template:
     src: postgres.sh.j2
     dest: /etc/profile.d/postgres.sh
     mode: 0644
+
+- name: "Create PostgreSQL data directory"
+  file:
+    path: "{{ postgresql_data_dir }}"
+    owner: "postgres"
+    group: "postgres"
+    state: directory
+    mode: 0700
