@@ -1,0 +1,6 @@
+---
+- name: "Install PostgreSQL packages"
+  yum:
+    name: "{{ postgresql_packages }}"
+    state: present
+    enablerepo: "{{ postgresql_enablerepo }}"

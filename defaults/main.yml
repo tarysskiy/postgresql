@@ -1,0 +1,16 @@
+---
+postgresql_version: "10"
+
+postgresql_enablerepo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+
+postgresql_data_dir: "/var/lib/pgsql/data"
+
+postgresql_bin_path: "/usr/bin"
+
+postgresql_config_path: "/var/lib/pgsql/data"
+
+postgresql_packages:
+- "postgresql{{ postgresql_version }}"
+- "postgresql{{ postgresql_version }}-server"
+- "postgresql{{ postgresql_version }}-contrib"
+- "postgresql-libs"
