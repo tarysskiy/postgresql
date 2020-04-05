@@ -39,3 +39,9 @@
   become: true
   become_user: "postgres"
   when: not pgdata_dir_version.stat.exists
+
+- name: "Started PostgreSQL"
+  service:
+    name: "postgresql-{{ postgresql_version }}"
+    state: "restarted"
+    enabled: "enabled"
